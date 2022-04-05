@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Book a Banker</title>
+    <script type="text/javascript" src="webjars/jquery/jquery.min.js"></script>
+    <!--link rel="stylesheet" type="text/css" href="webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="webjars/js-cookie/js.cookie.js"></script-->
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <div id="root"></div>
+
+    <div id="sso">
+      <div class="container text-danger error"></div>
+      <div class="container unauthenticated">
+        <!--
+        <div>
+          With Google: <a href="/oauth2/authorization/google">click here</a>
+        </div>
+      </div>
+      <div class="container authenticated" style="display: none">
+        Logged in as: <span id="user"></span>
+        <div>
+          <button onClick="logout()" class="btn btn-primary">Logout</button>
+        </div>
+      -->
+      </div>
+    </div>
+
+    <script type="text/javascript">
+        $.ajaxSetup({
+          beforeSend : function(xhr, settings) {
+            if (settings.type == 'POST' || settings.type == 'PUT' || settings.type == 'DELETE') {
+              if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                // Only send the token to relative URLs i.e. locally.
+                xhr.setRequestHeader("X-XSRF-TOKEN", Cookies.get('XSRF-TOKEN'));
+              }
+            }
+          }
+        });
+        /*
+        $.get("/user", function(data) {
+          $("#user").html(data.name);
+          $(".unauthenticated").hide();
+          $(".authenticated").show();
+        });
+        $.get("/error", function(data) {
+           if (data) {
+             $(".error").html(data);
+           } else {
+             $(".error").html('');
+           }
+        });
+        var logout = function() {
+          $.post("/logout", function() {
+            $("#user").html('');
+            $(".unauthenticated").show();
+            $(".authenticated").hide();
+          });
+          return true;
+        }
+        */
+    </script>
+  </body>
+</html>

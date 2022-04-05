@@ -1,5 +1,10 @@
 .classpath
 .project
+.flattened-pom.xml
 .setings/
 target/
 logs/
+ssl/
+build/
+node/
+node_modules/
