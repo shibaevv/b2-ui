@@ -1,0 +1,22 @@
+# mvn spring-boot:run -Dspring-boot.run.profiles=ssl
+# openssl s_client -connect localhost:443
+spring:
+  #profiles: ssl
+  config.activate.on-profile: ssl
+  security:
+    require-ssl: true
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    ciphers: ECDHE-RSA-AES256-GCM-SHA384
+    protocol: TLS
+    enabled-protocols: TLSv1.2
+    key-store: /static/ssl/keystore.p12
+    key-store-type: PKCS12
+    key-store-password: secret
+    key-password: secret
+    key-alias: spring
+    #trust-store: /static/ssl/keystore.p12
+    #trust-store-type: PKCS12
+    #trust-store-password: secret

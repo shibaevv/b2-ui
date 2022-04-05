@@ -1,0 +1,32 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '11'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'install'
+
+- script: |
+    echo "Push the container to Azure Container Registry $(REGISTRY_NAME)"
+    export REGISTRY_NAME=$(REGISTRY_NAME)
+    export REGISTRY_USERNAME=$(REGISTRY_USERNAME)
+    export REGISTRY_PASSWORD=$(REGISTRY_PASSWORD)
+    export SPRING_PROFILES_ACTIVE=$(SPRING_PROFILES_ACTIVE)
+    az acr login -n $(REGISTRY_NAME)
+    mvn package jib:build
+  displayName: "Push to Azure Container Registry $(REGISTRY_NAME)"

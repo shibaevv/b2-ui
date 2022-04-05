@@ -1,0 +1,104 @@
+# https://swagger.io/specification/
+openapi: 3.0.3
+info:
+  title: Book a Banker API
+  description: API sets to meet the needs of the Book a Banker
+  contact:
+    name: Valeri Chibaev
+    email: shibaev.valera@gmail.com
+  license:
+    name: Apache License Version 2.0
+    url: http://www.apache.org/licenses/
+  version: 1.0.0
+servers:
+- url: ${RestApi}.woolworths.com/{basePath}
+  description: The production API server
+  variables:
+    basePath:
+      default: v1
+paths:
+  /shipment/find:
+    post:
+      summary: Find Shipments
+      security:
+        - openId: [b2_read]
+      description: Find Shipments
+      operationId: findShipments
+      requestBody:
+        description: Shipment Request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShipmentRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShipmentResponse'
+        401:
+          description: Not authenticated
+          content: {}
+        403:
+          description: Access token does not have the required scope
+          content: {}
+# 1) Define the security scheme type and attributes
+components:
+  securitySchemes:
+    openId:   # <--- Arbitrary name for the security scheme. Used to refer to it from elsewhere.
+      type: openIdConnect
+      openIdConnectUrl: 'https://login.microsoftonline.com/common/.well-known/openid-configuration'
+  schemas:
+    Id:
+      type: string
+      description: Entity Id (primary key)
+      example: S-5165614
+    ShipmentRequest:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+    ShipmentResponse:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        customer:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+        carrier:
+          type: string
+        mode:
+          type: string
+        status:
+          type: string
+        ready:
+          type: string
+          format: date
+        eta:
+          type: string
+          format: date
+  parameters:
+    Id:
+      name: id
+      in: path
+      description: Entity Id (primary key)
+      required: true
+      schema:
+        type: string
+        #format: UUID
+# 2) Apply security globally to all operations
+security:
+  - openId:   # <--- Use the same name as specified in securitySchemes
+    - b2_read
+    - b2_write
+    - admin

@@ -1,0 +1,103 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+
+# --------------------------------------------------------- #
+# LOGGING
+# --------------------------------------------------------- #
+logging:
+  config: classpath:log4j2-spring.xml
+
+# --------------------------------------------------------- #
+# IDENTITY (ContextIdApplicationContextInitializer)
+# --------------------------------------------------------- #
+spring:
+  application:
+    name: book-banker
+
+# --------------------------------------------------------- #
+# SECURITY PROPERTIES (SecurityProperties) Spring-Boot 2+
+# --------------------------------------------------------- #
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: your-google-client-id
+#            client-secret: your-google-client-secret
+#          b2-client-oidc:
+#            provider: spring
+#            client-id: b2-client
+#            client-secret: secret
+#            authorization-grant-type: authorization_code
+#            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+#            scope: openid
+#            client-name: b2-client-oidc
+#          b2-client-authorization-code:
+#            provider: spring
+#            client-id: b2-client
+#            client-secret: secret
+#            authorization-grant-type: authorization_code
+#            redirect-uri: "{baseUrl}/authorized"
+#            scope: b2.read
+#            client-name: b2-client-authorization-code
+#          azure:
+#            provider: azure
+#            client-id: 45327e06-7199-41f6-8835-9ef345bf39a1
+#            client-secret: CONQ6Wo02G~IO1cCO-pD615P-Tz66K_~6-
+#            client-authentication-method: post
+#            authorization-grant-type: authorization_code
+#            redirect-uri: https://order-batch-service.azurewebsites.net/
+#            #redirect-uri: https://connect-flow-produce.azurewebsites.net/
+#            #redirect-uri: {baseUrl}/login/oauth2/code/{registrationId}
+#            #redirect-uri-template: {baseUrl}/login/oauth2/code/{registrationId}
+#            scope: "openid, https://graph.microsoft.com/user.read"
+#            client-name: Azure
+#        provider:
+#          spring:
+#            issuer-uri: ${issuer_uri:https://spring-authorization-server.azurewebsites.net}
+#          azure:
+#            #issuer-uri: https://login.microsoftonline.com/common/v2.0
+#            authorization-uri: https://login.microsoftonline.com/common/v2.0/oauth2/authorize
+#            token-uri: https://login.microsoftonline.com/common/v2.0/oauth2/token
+#            user-info-uri: https://login.microsoftonline.com/v2.0/common/openid/userinfo
+#            jwk-set-uri: https://login.microsoftonline.com/v2.0/common/discovery/keys
+#            user-name-attribute: name
+
+# --------------------------------------------------------- #
+# Azure AD B2C
+# login.microsoftonline.com/organizations/oauth2/v2.0/authorize?client_id=c44b4083-3bb0-49c1-b47d-974e53cbdf3c&response_type=code%20id_token&scope=https%3A%2F%2Fmanagement.core.windows.net%2F%2Fuser_impersonation%20openid%20email%20profile&state=OpenIdConnect.AuthenticationProperties%3D98U2XEauyRmj8czQDLKtx55THC1emC0CCjzHRLLW-qM6PHjG7dt_RoRmp7LN7A97l5UoLKdbXkU7DMJDGA9OoeS8WNrStu0KXhbPfT1J2rGJSt3vFzJT4kTxTnGc5C-dYQ0qIm3LtzNIKxtprKc8hiBu_0cTT4yssm_k1xLF76CDWiiun40o-CVusP7MxwuoZt8KxCH02PixLZjyl3tWRqNd6rjVzh_sAeWs8_OWSArDPZl7neZUGSZCKZ9h904pbxD-zorMJbCCHx7L3VgQQZ9y3k6MEpNoA8n2DNNrxclsDAg9y6dxOQqmnc03drxF&response_mode=form_post&nonce=637549838487487871.MWZmNDg2MzItNjI1Yy00ZDE3LWE4ZTYtNGM3ZTk2N2VmODQ3NjBhYjc0NDUtNzU5My00YmZkLTllMjUtMDMxYzIxOWZkMzVi&redirect_uri=https%3A%2F%2Fportal.azure.com%2Fsignin%2Findex%2F&site_id=501430&client-request-id=9bea4494-581a-4760-a5d1-c1bc58c6dda2&x-client-SKU=ID_NET45&x-client-ver=5.3.0.0
+# https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-samples/azure-spring-boot-sample-active-directory-resource-server-obo
+# https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-boot-samples/azure-spring-boot-sample-active-directory-b2c-oidc
+# --------------------------------------------------------- #
+azure:
+  activedirectory:
+    tenant-id: 72da2f75-fbcb-4b4d-aaf9-cf2c2368179c # wowOrgB2C
+    client-id: 45327e06-7199-41f6-8835-9ef345bf39a1 # GraphAPIDemo
+    client-secret: CONQ6Wo02G~IO1cCO-pD615P-Tz66K_~6-
+    redirect-uri-template: https://b2-ui.azurewebsites.net/index.html
+    #base-uri: ${your-tenant-authorization-server-base-uri:https://login.microsoftonline.com/common/v2.0/oauth2/authorize}
+    #login-flow: ${your-login-user-flow-key} # default to sign-up-or-sign-in, will look up the user-flows map with provided key.
+    #logout-success-url: https://b2-ui.azurewebsites.net/perform_logout
+    #post-logout-redirect-uri: https://b2-ui.azurewebsites.net
+    #session-stateless: true
+    authorization-clients:
+      graph:
+        scopes:
+          - https://graph.microsoft.com/User.Read
+          - https://graph.microsoft.com/Directory.AccessAsUser.All
+    user-flows:
+      #password-reset: ${your-profile-edit-user-flow}
+      #profile-edit: ${your-password-reset-user-flow}
+      sign-up-or-sign-in: https://b2-ui.azurewebsites.net/index.html
+      #sign-up-or-sign-in: https://b2-ui.azurewebsites.net/perform_login
+    #user-name-attribute-name: ${your-user-name-claim}
+    #user-group:
+    #  allowed-groups: user,admin
+
+# --------------------------------------------------------- #
+# EMBEDDED SERVER CONFIGURATION (ServerProperties)
+# --------------------------------------------------------- #
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    application-display-name: Book a Banker

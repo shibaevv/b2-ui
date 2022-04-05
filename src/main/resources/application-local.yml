@@ -1,0 +1,10 @@
+# mvn spring-boot:run -Dspring-boot.run.profiles=local
+spring:
+  #profiles: local
+  config.activate.on-profile: local
+  security:
+    require-ssl: false
+server:
+  port: 8080
+  ssl:
+    enabled: false

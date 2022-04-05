@@ -1,0 +1,39 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true,
+    "node": true
+  },
+  "globals": {
+    "document": true,
+    "window": true
+  },
+  "plugins": ["extra-rules", "compat"],
+  "extends": ["airbnb-typescript-prettier"],
+  "rules": {
+    "import/first": "error",
+    "import/no-absolute-path": "error",
+    "import/prefer-default-export": "off",
+    "import/no-default-export": 1,
+    "import/no-amd": "error",
+    "import/no-mutable-exports": "error",
+    "import/no-self-import": "error",
+    "no-plusplus": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "max-params": ["error", {
+      "max": 7
+    }],
+    "max-len": 0,
+    "object-shorthand": ["warn", "properties"],
+    "array-callback-return": "error",
+    "extra-rules/no-commented-out-code": "error",
+    "react/react-in-jsx-scope": "off",
+    "linebreak-style": 1,
+    "compat/compat": "error",
+    "import/order": 0,
+    "sort-imports": "warn",
+    "react/jsx-filename-extension": [2, { "extensions": [".jsx", ".tsx"] }],
+    "react/jsx-curly-newline": "off"
+  }
+}

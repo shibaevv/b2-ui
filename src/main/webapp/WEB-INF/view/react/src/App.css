@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url('./assets/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./assets/Montserrat-Regular.ttf');
+}
