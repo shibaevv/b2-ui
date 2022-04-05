@@ -2,14 +2,15 @@
 Book a Banker
 
 # Getting Started
-- http://localhost:8080
-    
+
+- [http://localhost:8080](http://localhost:8080)
+
     mvn spring-boot:run
     mvn spring-boot:run -Dspring-boot.run.profiles=local
     mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=80 --server.ssl.enabled=false --spring.security.require-ssl=false"
 
-- https://localhost:8443
-    
+- [https://localhost:8443](https://localhost:8443)
+
     mvn spring-boot:run -Dspring-boot.run.profiles=ssl
     mvn spring-boot:run -Dspring-boot.run.profiles=
 
