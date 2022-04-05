@@ -3,7 +3,7 @@
 .flattened-pom.xml
 .setings/
 target/
-logs/
+log/
 ssl/
 build/
 node/

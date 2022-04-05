@@ -53,7 +53,6 @@ image is built using Cloud Native Buildpacks (no need for Dockerfile):
     mvn package azure-webapp:deploy
     az group delete --name <resource_group_name>
     
-- [b2-ui-1618354854139](https://portal.azure.com/#@publicisgroupe.net/resource/subscriptions/0ab677a1-85f8-4d7b-a046-55f21cd7b4c5/resourceGroups/b2-ui-1618354854139-rg/providers/Microsoft.Web/sites/b2-ui-1618354854139/appServices)
 - [Quickstart: Create a Java app on Azure App Service](https://docs.microsoft.com/en-gb/azure/app-service/quickstart-java?pivots=platform-linux&tabs=javase)
 
 # References
